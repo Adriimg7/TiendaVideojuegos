@@ -1,0 +1,111 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f7fa;
+    color: #333;
+}
+
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+
+.login-container h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #0073e6;
+    font-family: 'Verdana', sans-serif;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fafafa;
+}
+
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #0073e6;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background-color: #005bb5;
+}
+
+.reg-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #515651;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.reg-btn:hover {
+    background-color: #323232;
+}
+
+/* Enlace de contraseña */
+.forgot-password {
+    display: block;
+    margin-top: 15px;
+    color: #0073e6;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+
+.mens-bienvenida {
+    color: #666;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
