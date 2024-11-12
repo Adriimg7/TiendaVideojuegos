@@ -1,0 +1,22 @@
+.form-container {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+input[type="submit"], input[type="reset"] {
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    padding: 10px;
+}
