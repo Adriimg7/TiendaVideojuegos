@@ -1,35 +1,51 @@
+
+<?php
+session_start();
+if (!isset($_SESSION['id_cliente'])) {
+    header("Location: Login.html");
+    exit();
+}
+
+// Prefijo único basado en el ID de cliente
+$cookiePrefix = 'user_' . $_SESSION['id_cliente'];
+
+$ultimoAcceso = isset($_COOKIE[$cookiePrefix . '_ultimo_acceso']) ? $_COOKIE[$cookiePrefix . '_ultimo_acceso'] : 'Primera vez que ingresas';
+$numAccesos = isset($_COOKIE[$cookiePrefix . '_num_accesos']) ? $_COOKIE[$cookiePrefix . '_num_accesos'] : 1;
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="EstilosMenu.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
     <title>Menú Principal</title>
 </head>
 <body>
 
 <header>
-  <nav>
-      <a href="#" class="logo">CE Videojuegos</a>
-      
-      <ul class="menu">
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Ofertas</a></li>
-          <li><a href="#">Nuevos lanzamientos</a></li>
-          <li><a href="#">Consolas y accesorios</a></li>
-      </ul>
-      
-      <div class="search-bar">
-          <input type="text" placeholder="Buscar...">
-          <button>Buscar</button>
-          <a href="#" class="cart-icon">🛒 Carrito</a>
-      </div>
-  </nav>
+    <nav>
+        <a href="#" class="logo">CE Videojuegos</a>
+        <ul class="menu">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Ofertas</a></li>
+            <li><a href="#">Nuevos lanzamientos</a></li>
+            <li><a href="#">Consolas y accesorios</a></li>
+        </ul>
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar...">
+            <button>Buscar</button>
+            <a href="#" class="cart-icon">🛒 Carrito</a>
+        </div>
+    </nav>
 </header>
 
 <div style="text-align: center;">
-    <h1 style="color: white;">Productos disponibles</h1>
+    <h1>Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre']); ?>!</h1>
+    <p>Último acceso: <?php echo htmlspecialchars($ultimoAcceso); ?></p>
+    <p>Has accedido <?php echo htmlspecialchars($numAccesos); ?> veces.</p>
+    <a href="logout.php" style="color: #f00; text-decoration: none;">Cerrar Sesión</a>
 </div>
+
 
 <div class="products">
     <?php
