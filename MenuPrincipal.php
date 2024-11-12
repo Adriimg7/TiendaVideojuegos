@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 if (!isset($_SESSION['id_cliente'])) {
@@ -30,6 +29,8 @@ $numAccesos = isset($_COOKIE[$cookiePrefix . '_num_accesos']) ? $_COOKIE[$cookie
             <li><a href="#">Ofertas</a></li>
             <li><a href="#">Nuevos lanzamientos</a></li>
             <li><a href="#">Consolas y accesorios</a></li>
+            <!-- Botón de Cerrar Sesión en la barra de navegación -->
+            <li><a href="logout.php" style="color: #f00; text-decoration: none;">Cerrar Sesión</a></li>
         </ul>
         <div class="search-bar">
             <input type="text" placeholder="Buscar...">
@@ -43,9 +44,7 @@ $numAccesos = isset($_COOKIE[$cookiePrefix . '_num_accesos']) ? $_COOKIE[$cookie
     <h1>Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre']); ?>!</h1>
     <p>Último acceso: <?php echo htmlspecialchars($ultimoAcceso); ?></p>
     <p>Has accedido <?php echo htmlspecialchars($numAccesos); ?> veces.</p>
-    <a href="logout.php" style="color: #f00; text-decoration: none;">Cerrar Sesión</a>
 </div>
-
 
 <div class="products">
     <?php
