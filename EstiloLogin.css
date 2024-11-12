@@ -41,8 +41,7 @@ body {
     color: #555;
 }
 
-.form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
@@ -50,6 +49,8 @@ body {
     font-size: 16px;
     color: #333;
     background-color: #fafafa;
+    box-sizing: border-box; 
+    margin: 0;
 }
 
 
@@ -89,7 +90,6 @@ body {
     background-color: #323232;
 }
 
-/* Enlace de contraseña */
 .forgot-password {
     display: block;
     margin-top: 15px;
@@ -108,4 +108,24 @@ body {
     font-size: 15px;
     margin-top: 5px;
     margin-bottom: 20px;
+}
+
+#botonRegistro:disabled {
+    background-color: #5282b3; 
+    cursor: not-allowed; 
+    opacity: 0.8;
+}
+
+#botonRegistro {
+    background-color: #005bb5; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#botonRegistro:hover {
+    background-color: #005bb5;
 }

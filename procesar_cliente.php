@@ -27,7 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':telefono', $telefono);
 
         $stmt->execute();
-        echo "Cliente registrado con éxito.";
+        
+        // Redirigir al usuario a MenuPrincipal.php después de un registro exitoso
+        header('Location: MenuPrincipal.php');
+        exit(); // Detener la ejecución del script después de la redirección
     } catch (Exception $e) {
         echo "Error al registrar el cliente: " . $e->getMessage();
     }
