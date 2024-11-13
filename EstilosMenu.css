@@ -74,28 +74,38 @@ i {
 .search-bar {
   display: flex;
   align-items: center;
+  gap: 15px; 
 }
 
 .search-bar input {
   padding: 8px;
-  border-radius: 20px;
-  border: none;
-  width: 200px;
-  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .search-bar button {
-  background-color: #ffd700;
-  border: none;
-  border-radius: 20px;
   padding: 8px 12px;
+  background-color: #ffd700;
+  color: black;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  color: #272727;
-  font-weight: bold;
 }
 
-.search-bar button:hover {
-  background-color: #ffcc00;
+.search-bar .cart-icon {
+  font-size: 20px;
+  text-decoration: none;
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
+.search-bar .logout-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 /* Estilo del carrito */
@@ -163,3 +173,26 @@ i {
 .product button:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra en hover */
 }
+
+
+
+
+/* -------------- Añadido para los botones del carrito ------------- */
+
+input[type="number"] {
+  width: 60px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+input[type="number"]:focus {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  outline: none;
+}
+
+
