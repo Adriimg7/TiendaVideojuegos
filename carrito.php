@@ -2,17 +2,14 @@
 session_start();
 require 'conexionPDO.php';
 
-
 if (!isset($_SESSION['id_cliente'])) {
     header("Location: Login.html");
     exit();
 }
 
-
 if (!isset($_SESSION['carrito'])) {
     $_SESSION['carrito'] = [];
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $accion = $_POST['accion'];
@@ -22,35 +19,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     switch ($accion) {
         case 'agregar':
             if ($producto_id) {
+                $stmt = $conexionPDO->prepare("SELECT stock FROM productos WHERE id_producto = :id_producto");
+                $stmt->bindParam(':id_producto', $producto_id, PDO::PARAM_INT);
+                $stmt->execute();
+                $producto = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                if (isset($_SESSION['carrito'][$producto_id])) {
-                    $_SESSION['carrito'][$producto_id] += $cantidad;
+                if ($producto && $producto['stock'] >= $cantidad) {
+                    if (isset($_SESSION['carrito'][$producto_id])) {
+                        $nueva_cantidad = $_SESSION['carrito'][$producto_id] + $cantidad;
+                        if ($nueva_cantidad <= $producto['stock']) {
+                            $_SESSION['carrito'][$producto_id] = $nueva_cantidad;
+                        } else {
+                            echo "<script>alert('No hay suficiente stock disponible.');</script>";
+                        }
+                    } else {
+                        $_SESSION['carrito'][$producto_id] = $cantidad;
+                    }
                 } else {
-                    $_SESSION['carrito'][$producto_id] = $cantidad;
+                    echo "<script>alert('Stock insuficiente para agregar este producto al carrito.');</script>";
                 }
             }
             break;
+
+        case 'actualizar':
+            if ($producto_id && isset($_SESSION['carrito'][$producto_id])) {
+                $stmt = $conexionPDO->prepare("SELECT stock FROM productos WHERE id_producto = :id_producto");
+                $stmt->bindParam(':id_producto', $producto_id, PDO::PARAM_INT);
+                $stmt->execute();
+                $producto = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($producto && $producto['stock'] >= $cantidad) {
+                    $_SESSION['carrito'][$producto_id] = $cantidad;
+                } else {
+                    echo "<script>alert('Stock insuficiente para la cantidad solicitada.');</script>";
+                }
+            }
+            break;
+
         case 'eliminar':
             if ($producto_id && isset($_SESSION['carrito'][$producto_id])) {
                 unset($_SESSION['carrito'][$producto_id]);
             }
             break;
-        case 'actualizar':
-            if ($producto_id && isset($_SESSION['carrito'][$producto_id])) {
-                if ($cantidad > 0) {
-                    $_SESSION['carrito'][$producto_id] = $cantidad;
-                } else {
-                    unset($_SESSION['carrito'][$producto_id]);
-                }
-            }
-            break;
-        case 'vaciar':
 
+        case 'vaciar':
             $_SESSION['carrito'] = [];
             break;
     }
 }
-
 
 $productos_carrito = [];
 if (!empty($_SESSION['carrito'])) {
@@ -69,7 +85,6 @@ if (!empty($_SESSION['carrito'])) {
     <link rel="stylesheet" href="EstilosMenu.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
     <title>Carrito de Compras</title>
-
     <script>
         function openModal() {
             document.getElementById('modalOverlay').style.display = 'flex';
@@ -83,8 +98,6 @@ if (!empty($_SESSION['carrito'])) {
             window.location.href = 'logout.php';
         }
     </script>
-
-
     <style>
         button {
             background-color: #ff9933; 
@@ -130,15 +143,15 @@ if (!empty($_SESSION['carrito'])) {
         }
 
         .modal-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        justify-content: center;
-        align-items: center;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
         }
 
         .modal {
@@ -150,9 +163,11 @@ if (!empty($_SESSION['carrito'])) {
             max-width: 300px;
             width: 100%;
         }
+
         .modal h3 {
             margin-top: 0;
         }
+
         .modal button {
             margin: 10px 5px;
             padding: 10px 20px;
@@ -161,13 +176,16 @@ if (!empty($_SESSION['carrito'])) {
             cursor: pointer;
             transition: box-shadow 0.3s ease;
         }
+
         .modal button:hover {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
+
         .modal .confirm-btn {
             background-color: #0073e6;
             color: white;
         }
+
         .modal .cancel-btn {
             background-color: #ff4d4d;
             color: white;
@@ -183,10 +201,9 @@ if (!empty($_SESSION['carrito'])) {
             <li><a href="#">Ofertas</a></li>
             <li><a href="#">Nuevos lanzamientos</a></li>
             <li><a href="#">Consolas y accesorios</a></li>
-
         </ul>
         <div class="search-bar">
-            <button onclick="openModal()" style="background-color: #ff4d4d; color: white; margin-left: 5px;"> Salir<i class="fa-solid fa-door-open"></i></button>
+            <button onclick="openModal()" style="background-color: #ff4d4d; color: white; margin-left: 5px;"> Salir <i class="fa-solid fa-door-open"></i></button>
         </div>
     </nav>
 </header>
@@ -249,8 +266,8 @@ if (!empty($_SESSION['carrito'])) {
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <h2>Total: $<?php echo number_format($total, 2); ?></h2>
-        <form action="carrito.php" method="POST">
+        <h2 style="color:white">Total: $<?php echo number_format($total, 2); ?></h2>
+        <form action="carrito.php" method="POST" style="margin-bottom: 15px;">
             <input type="hidden" name="accion" value="vaciar">
             <button type="submit" style="background-color: #ff4d4d; color: white; padding: 15px; border-radius: 5px; cursor: pointer;">Vaciar Carrito</button>
         </form>
@@ -259,6 +276,5 @@ if (!empty($_SESSION['carrito'])) {
         </form>
     <?php endif; ?>
 </div>
-
 </body>
 </html>

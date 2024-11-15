@@ -86,7 +86,7 @@ $numAccesos = isset($_COOKIE[$cookiePrefix . '_num_accesos']) ? $_COOKIE[$cookie
     <nav>
         <a href="MenuPrincipal.php" class="logo">CE Videojuegos <i class="fa-solid fa-gamepad"></i></a>
         <ul class="menu">
-            <li><a href="#">Inicio</a></li>
+            <li><a href="MenuPrincipal.php">Inicio</a></li>
             <li><a href="#">Ofertas</a></li>
             <li><a href="#">Nuevos lanzamientos</a></li>
             <li><a href="#">Consolas y accesorios</a></li>
@@ -100,7 +100,7 @@ $numAccesos = isset($_COOKIE[$cookiePrefix . '_num_accesos']) ? $_COOKIE[$cookie
         <button type="submit">Buscar <i class="fa-solid fa-binoculars"></i></button>
     </form>
 
-            <button onclick="openModal()" style="background-color: #ff4d4d; color: white; margin-left: 5px;"> Salir<i class="fa-solid fa-door-open"></i></button>
+            <button onclick="openModal()" style="background-color: #ff4d4d; color: white; margin-left: 5px;"> Salir <i class="fa-solid fa-door-open"></i></button>
         </div>
     </nav>
 </header>
