@@ -90,15 +90,14 @@ $numAccesos = isset($_COOKIE[$cookiePrefix . '_num_accesos']) ? $_COOKIE[$cookie
             <li><a href="#">Ofertas</a></li>
             <li><a href="#">Nuevos lanzamientos</a></li>
             <li><a href="#">Consolas y accesorios</a></li>
-            
         </ul>
         <div class="search-bar">
             <a href="carrito.php" class="cart-icon">🛒 Carrito (<?php echo array_sum(isset($_SESSION['carrito']) ? $_SESSION['carrito'] : []); ?>)</a>
             
             <form action="" method="GET" style="display: inline;">
-        <input type="text" name="busqueda" placeholder="Buscar..." autocomplete="off" style="margin-left: 10px;" value="<?php echo isset($_GET['busqueda']) ? htmlspecialchars($_GET['busqueda']) : ''; ?>">
-        <button type="submit">Buscar <i class="fa-solid fa-binoculars"></i></button>
-    </form>
+                <input type="text" name="busqueda" placeholder="Buscar..." autocomplete="off" style="margin-left: 10px;" value="<?php echo isset($_GET['busqueda']) ? htmlspecialchars($_GET['busqueda']) : ''; ?>">
+                <button type="submit">Buscar <i class="fa-solid fa-binoculars"></i></button>
+            </form>
 
             <button onclick="openModal()" style="background-color: #ff4d4d; color: white; margin-left: 5px;"> Salir <i class="fa-solid fa-door-open"></i></button>
         </div>
@@ -119,6 +118,14 @@ $numAccesos = isset($_COOKIE[$cookiePrefix . '_num_accesos']) ? $_COOKIE[$cookie
     <p>Último acceso: <?php echo htmlspecialchars($ultimoAcceso); ?></p>
     <p>Has accedido <?php echo htmlspecialchars($numAccesos); ?> veces.</p>
 </div>
+
+<?php 
+if ($_SESSION['email'] === 'Pepe@gmail.com'): ?>
+<div style="text-align: center; margin: 20px;">
+    <a href="formulario_registro.php" style="padding: 10px 20px; background-color: #ed7117; color: white; text-decoration: none; border-radius: 5px;">Insertar Productos</a>
+</div>
+<?php endif; 
+?>
 
 <div class="products">
     <?php
